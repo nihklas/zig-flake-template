@@ -11,15 +11,17 @@
     nixpkgs,
     flake-utils,
     ...
-  } @inputs :
+  } @ inputs:
     flake-utils.lib.eachDefaultSystem
     (
       system: let
-        overlays = [ inputs.zig.overlays.default ];
+        overlays = [
+          inputs.zig.overlays.default
+          inputs.zigscient.overlays.default
+        ];
         pkgs = import nixpkgs {
           inherit system overlays;
         };
-        zigscient = inputs.zigscient.packages.${system}.default;
       in
         with pkgs; {
           devShells.default = mkShell {
