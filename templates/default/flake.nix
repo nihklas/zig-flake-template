@@ -25,7 +25,7 @@
       in
         with pkgs; {
           devShells.default = mkShell {
-            nativeBuildInputs = [
+            packages = [
               zigpkgs.master
               zigscient
             ];
