@@ -1,8 +1,9 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     flake-utils.url = "github:numtide/flake-utils";
     zig.url = "github:mitchellh/zig-overlay";
+    zigscient.url = "gitlab:nihklas/zigscient-nix";
   };
 
   outputs = {
@@ -18,11 +19,13 @@
         pkgs = import nixpkgs {
           inherit system overlays;
         };
+        zigscient = inputs.zigscient.packages.${system}.default;
       in
         with pkgs; {
           devShells.default = mkShell {
             nativeBuildInputs = [
               zigpkgs.master
+              zigscient
             ];
             shellHook = ''
               # We unset some NIX environment variables that might interfere with the zig compiler.
