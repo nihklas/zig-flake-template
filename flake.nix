@@ -1,9 +1,10 @@
 {
   inputs = {};
   outputs = {self}: {
-    templates.default = {
+    templates.default = self.templates."0.14.0";
+    templates."0.14.0" = {
       path = ./templates/default;
-      description = "Basic Template";
+      description = "Zig Flake Template for 0.14.0";
     };
   };
 }
