@@ -7,7 +7,6 @@
 
     zls.url = "github:zigtools/zls/0.14.0";
     zls.inputs.nixpkgs.follows = "nixpkgs";
-    zls.inputs.zig-overlay.follows = "zig-overlay";
   };
 
   outputs = {
@@ -23,7 +22,7 @@
           inherit system;
           target = builtins.replaceStrings ["darwin"] ["macos"] system;
           pkgs = nixpkgs.legacyPackages.${system};
-          zig = zig-overlay.packages.${system}.master;
+          zig = zig-overlay.packages.${system}."0.14.0";
         });
   in {
     devShells = eachSystem ({
@@ -34,7 +33,6 @@
     }: {
       default = pkgs.mkShellNoCC {
         packages = [
-          pkgs.lua-language-server
           zls.packages.${system}.default
           zig
         ];
